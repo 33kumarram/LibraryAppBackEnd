@@ -1,0 +1,31 @@
+{
+  "name": "libraryappbackend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/33kumarram/LibraryAppBackEnd.git"
+  },
+  "author": "Ramesh Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.21"
+  },
+  "bugs": {
+    "url": "https://github.com/33kumarram/LibraryAppBackEnd/issues"
+  },
+  "homepage": "https://github.com/33kumarram/LibraryAppBackEnd#readme"
+}
