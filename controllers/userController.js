@@ -1,15 +1,16 @@
 const errorHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
+const user = require("../models/userModel");
 
 const registerUser = errorHandler(async (req, res) => {
-  const { name, email, password, profile_pic } = req.body;
-  if (!name || !email || !password) {
+  const { name, email, mobile_no, password, kyc_image } = req.body;
+  if (!name || !email ||!mobile_no || !password ||!kyc_image) {
     res.status(400);
     throw new Error("Please fill all the details");
   }
 
-  const userExist = await User.findOne({ email });
+  const userExist = await User.findOne({ mobile_no });
   if (userExist) {
     res.status(400);
     throw new Error("User already created");
@@ -18,8 +19,9 @@ const registerUser = errorHandler(async (req, res) => {
   const newUser = await User.create({
     name: name,
     email: email,
+    mobile_no:mobile_no,
     password: password,
-    profile_pic: profile_pic,
+    kyc_image: kyc_image,
   });
 
   if (newUser) {
@@ -27,7 +29,8 @@ const registerUser = errorHandler(async (req, res) => {
       _id: newUser._id,
       name: newUser.name,
       email: newUser.email,
-      profile_pic: newUser.profile_pic,
+      mobile_no:newUser.mobile_no,
+      kyc_image: newUser.kyc_image,
       token: generateToken(newUser._id),
     });
   } else {
@@ -37,19 +40,20 @@ const registerUser = errorHandler(async (req, res) => {
 });
 
 const authUser = errorHandler(async function (req, res) {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
+  const { mobile_no, password } = req.body;
+  const user = await User.findOne({ mobile_no });
   if (user && user.comparePassword(password)) {
     res.status(201).json({
       _id: user._id,
       name: user.name,
       email: user.email,
-      profile_pic: user.profile_pic,
+      mobile_no:user.mobile_no,
+      kyc_image: user.kyc_image,
       token: generateToken(user._id),
     });
   } else {
     res.status(400);
-    throw new Error("Incorrect email id or password");
+    throw new Error("Incorrect mobile number or password");
   }
 });
 
@@ -66,8 +70,16 @@ const allUsers = errorHandler(async function (req, res) {
   res.status(201).json(users);
 });
 
+const verifyUser = errorHandler(async function (req, res) {
+  const keyWords = req.params.mobile_no
+  const user =await User.findOneAndUpdate({mobile_no},{verified:true, verification_date:new Date()})
+  res.status(201).json(user)
+   
+});
+
 module.exports = {
   registerUser,
   authUser,
   allUsers,
+  verifyUser
 };

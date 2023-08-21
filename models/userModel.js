@@ -4,13 +4,19 @@ const bcrypt = require("bcryptjs");
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true},
+    mobile_no:{type: Number, required:true, unique:true},
     password: { type: String, required: true },
-    profile_pic: {
-      type: String,
-      default:
-        "https://icon-library.com/images/user-icon-png/user-icon-png-16.jpg",
+    borrowed_books:[{
+      book_name:{type:String},
+      id:{type:mongoose.Schema.Types.ObjectId},
+      borrowing_date:{type:Date}
+    }],
+    kyc_image: {
+      type: String
     },
+    verified:{type:Boolean, default:false},
+    verification_date:{type:Date}
   },
   {
     timestamps: true,

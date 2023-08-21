@@ -21,6 +21,7 @@ var corsOptions = {
   const app = express();
 
   const userRoutes = require("./Routes/userRoutes");
+  const bookRoutes = require("./Routes/bookRoutes")
 
   const PORT = process.env.PORT || 8000;
 
@@ -36,6 +37,7 @@ app.use(morgan("dev")); // to display hit url in terminal
 app.use(cors(corsOptions)); // to accept request from origin specified in cor options
 
 app.use("/users", userRoutes);
+app.use("/books", bookRoutes);
 
 app.get("/", (req, res) => {
     res.send("welcome !!!");
