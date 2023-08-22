@@ -6,29 +6,28 @@ const ConnectDB = require("./config/db");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 
 var corsOptions = {
-    // origin: "*",
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "http://localhost:3002",
-      "https://rkchatapp.netlify.app",
-    ],
-    credentials: true,
-  };
-  
-  // const io = require('socket.io')(8000)
-  dotenv.config();
-  const app = express();
+  // origin: "*",
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost:3002",
+    "https://rkchatapp.netlify.app",
+  ],
+  credentials: true,
+};
 
-  const userRoutes = require("./Routes/userRoutes");
-  const bookRoutes = require("./Routes/bookRoutes")
+// const io = require('socket.io')(8000)
+dotenv.config();
+const app = express();
 
-  const PORT = process.env.PORT || 8000;
+const userRoutes = require("./Routes/userRoutes");
+const bookRoutes = require("./Routes/bookRoutes");
+
+const PORT = process.env.PORT || 8000;
 
 const server = app.listen(PORT, (req, res) => {
   console.log(`app is listening at port ${PORT}`);
 });
-
 
 ConnectDB();
 
@@ -40,11 +39,10 @@ app.use("/users", userRoutes);
 app.use("/books", bookRoutes);
 
 app.get("/", (req, res) => {
-    res.send("welcome !!!");
-  });
-  // app.use(express.static("public"));
-  
-  app.use(notFound);
-  
-  app.use(errorHandler);
-  
+  res.send("welcome !!!");
+});
+// app.use(express.static("public"));
+
+app.use(notFound);
+
+app.use(errorHandler);

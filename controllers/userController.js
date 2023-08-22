@@ -5,7 +5,7 @@ const user = require("../models/userModel");
 
 const registerUser = errorHandler(async (req, res) => {
   const { name, email, mobile_no, password, kyc_image } = req.body;
-  if (!name || !email ||!mobile_no || !password ||!kyc_image) {
+  if (!name || !email || !mobile_no || !password || !kyc_image) {
     res.status(400);
     throw new Error("Please fill all the details");
   }
@@ -19,7 +19,7 @@ const registerUser = errorHandler(async (req, res) => {
   const newUser = await User.create({
     name: name,
     email: email,
-    mobile_no:mobile_no,
+    mobile_no: mobile_no,
     password: password,
     kyc_image: kyc_image,
   });
@@ -29,7 +29,7 @@ const registerUser = errorHandler(async (req, res) => {
       _id: newUser._id,
       name: newUser.name,
       email: newUser.email,
-      mobile_no:newUser.mobile_no,
+      mobile_no: newUser.mobile_no,
       kyc_image: newUser.kyc_image,
       token: generateToken(newUser._id),
     });
@@ -47,7 +47,7 @@ const authUser = errorHandler(async function (req, res) {
       _id: user._id,
       name: user.name,
       email: user.email,
-      mobile_no:user.mobile_no,
+      mobile_no: user.mobile_no,
       kyc_image: user.kyc_image,
       token: generateToken(user._id),
     });
@@ -57,29 +57,34 @@ const authUser = errorHandler(async function (req, res) {
   }
 });
 
-const allUsers = errorHandler(async function (req, res) {
-  const keyWords = req.params.username
-    ? {
-        $or: [
-          { name: { $regex: req.params.username, $options: "i" } },
-          { email: { $regex: req.params.username, $options: "i" } },
-        ],
-      }
-    : {};
-  const users = await User.find(keyWords).find({ _id: { $ne: req.user._id } });
-  res.status(201).json(users);
+const getUser = errorHandler(async function (req, res) {
+  try {
+    const mobile_no = req.params.mobile_no;
+    const user = await User.findOne({ mobile_no });
+    if (!user) {
+      res.status(400);
+      throw new Error("User not found");
+    }
+    res.status(201).json(user);
+  } catch (err) {
+    console.log(err);
+    res.status(400);
+    throw new Error("Error occured while searching the user");
+  }
 });
 
 const verifyUser = errorHandler(async function (req, res) {
-  const keyWords = req.params.mobile_no
-  const user =await User.findOneAndUpdate({mobile_no},{verified:true, verification_date:new Date()})
-  res.status(201).json(user)
-   
+  const keyWords = req.params.mobile_no;
+  const user = await User.findOneAndUpdate(
+    { mobile_no },
+    { verified: true, verification_date: new Date() }
+  );
+  res.status(201).json(user);
 });
 
 module.exports = {
   registerUser,
   authUser,
-  allUsers,
-  verifyUser
+  getUser,
+  verifyUser,
 };
