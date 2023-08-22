@@ -20,6 +20,7 @@ var corsOptions = {
 dotenv.config();
 const app = express();
 
+const fileRoutes = require("./Routes/fileRoutes");
 const userRoutes = require("./Routes/userRoutes");
 const bookRoutes = require("./Routes/bookRoutes");
 
@@ -35,6 +36,7 @@ app.use(express.json()); // to accept json data
 app.use(morgan("dev")); // to display hit url in terminal
 app.use(cors(corsOptions)); // to accept request from origin specified in cor options
 
+app.use("/files", fileRoutes);
 app.use("/users", userRoutes);
 app.use("/books", bookRoutes);
 

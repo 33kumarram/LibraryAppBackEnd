@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Books = require("../models/bookModel");
 const Users = require("../models/bookModel");
+const { booksOnOnePage } = require("../config/constValues");
 
 const borrowBook = asyncHandler(async (req, res) => {
   const bookId = req.params.bookId;
@@ -39,7 +40,22 @@ const returnBook = asyncHandler(async (req, res) => {
   }
 });
 
+const bookList = asyncHandler(async (req, res) => {
+  try {
+    const page = req.params.page || 1;
+    const booksToSkip = page * (page - 1);
+    const BookCount = await Books.count();
+    const totalPages = Math.ceil(BookCount / totalPages);
+    const books = await Books.find().skip(booksToSkip).limit(booksOnOnePage);
+    res.status(201).json({ books: books, totalPages: totalPages });
+  } catch (err) {
+    res.status(400);
+    throw new Error("Error occurred while fetching the books");
+  }
+});
+
 module.exports = {
   borrowBook,
   returnBook,
+  bookList,
 };
