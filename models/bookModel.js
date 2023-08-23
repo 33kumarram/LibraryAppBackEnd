@@ -8,7 +8,6 @@ const newSchema = new mongoose.Schema(
     publication_year: { type: Number },
     rating: { type: Number },
     book_type: { type: String },
-    borrowed: { type: Boolean, default: false },
     borrowing_limit: { type: Number },
     no_of_borrowers: { type: Number },
   },

@@ -68,11 +68,55 @@ const bookList = asyncHandler(async (req, res) => {
   }
 });
 
-const addNewBook = asyncHandler(async (req, res) => {});
+const addNewBook = asyncHandler(async (req, res) => {
+  const {
+    book_name,
+    isbn,
+    author,
+    publication_year,
+    book_type,
+    borrowing_limit,
+  } = req.body;
+  if (
+    !book_name ||
+    !isbn ||
+    !author ||
+    !publication_year ||
+    !book_type ||
+    !borrowing_limit
+  ) {
+    res.status(400);
+    throw new Error("Please fill all the details");
+  }
+  try {
+    const book = await Books.create({ ...req.body });
+    res.status(201).json(book);
+  } catch (err) {
+    console.log(err);
+    res.status(400);
+    throw new Error("Some Error occurred while adding a book");
+  }
+});
+
+const searchBook = asyncHandler(async (req, res) => {
+  try {
+    const attributename = req.params.attributename;
+    const value = req.params.value;
+    const query = {};
+    query[attributename] = { $regex: value, $options: "i" };
+    const books = await Books.find(query).sort({ id: -1 });
+    res.status(201).json(books);
+  } catch (err) {
+    console.log(err);
+    res.status(400);
+    throw new Error("Some Error occurred while searching books");
+  }
+});
 
 module.exports = {
   borrowBook,
   returnBook,
   bookList,
   addNewBook,
+  searchBook,
 };
