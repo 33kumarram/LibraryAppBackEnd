@@ -1,8 +1,15 @@
 const express = require("express");
-const { borrowBook } = require("../controllers/bookController");
+const {
+  borrowBook,
+  returnBook,
+  bookList,
+} = require("../controllers/bookController");
+const { authorize } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
-router.route("/borrow/id").put(borrowBook);
+router.route("/borrow/:bookId").put(authorize, borrowBook);
+router.route("/return/:bookId").put(authorize, returnBook);
+router.route("/list/:page").get(authorize, returnBook);
 
 module.exports = router;

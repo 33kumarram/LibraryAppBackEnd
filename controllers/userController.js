@@ -5,6 +5,7 @@ const user = require("../models/userModel");
 
 const registerUser = errorHandler(async (req, res) => {
   const { name, email, mobile_no, password, kyc_image } = req.body;
+  const admin_key = process.env.ADMIN_KEY;
   if (!name || !email || !mobile_no || !password || !kyc_image) {
     res.status(400);
     throw new Error("Please fill all the details");
@@ -16,12 +17,26 @@ const registerUser = errorHandler(async (req, res) => {
     throw new Error("User already created");
   }
 
+  let user_type = "user";
+
+  if (req.body.user_type && req.body.user_type === "administrator") {
+    const valid_admin = req.body.admin_key === admin_key;
+    if (!valid_admin) {
+      res.status(400);
+      throw new Error("Invalid administrator key");
+    }
+    if (valid_admin) {
+      user_type = "administrator";
+    }
+  }
+
   const newUser = await User.create({
     name: name,
     email: email,
     mobile_no: mobile_no,
     password: password,
     kyc_image: kyc_image,
+    user_type: user_type,
   });
 
   if (newUser) {
@@ -82,9 +97,23 @@ const verifyUser = errorHandler(async function (req, res) {
   res.status(201).json(user);
 });
 
+const manageProfile = errorHandler(async (req, res) => {
+  const userId = req.params.userId;
+  const data = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(userId, data);
+    res.status(201).json(user);
+  } catch (err) {
+    console.log(err);
+    res.status(400);
+    throw new Error("Some error occurred while updating the user profile");
+  }
+});
+
 module.exports = {
   registerUser,
   authUser,
   getUser,
   verifyUser,
+  manageProfile,
 };
