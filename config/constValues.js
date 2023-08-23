@@ -1,7 +1,9 @@
-const bookBorrowLimitForUser = 4;
+const bookBorrowLimitPerUser = 4;
+const borrowingDuration = 15; // in days
 const booksOnOnePage = 10;
 
 module.exports = {
-  bookBorrowLimitForUser,
+  bookBorrowLimitPerUser,
   booksOnOnePage,
+  borrowingDuration,
 };

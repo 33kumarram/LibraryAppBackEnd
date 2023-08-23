@@ -113,10 +113,25 @@ const searchBook = asyncHandler(async (req, res) => {
   }
 });
 
+const updateBookDetails = asyncHandler(async (req, res) => {
+  const bookId = req.params.bookId;
+  const data = req.body;
+
+  try {
+    const book = await Books.findByIdAndUpdate(bookId, { ...data });
+    res.status(201).json(book);
+  } catch (err) {
+    console.log(err);
+    res.status(400);
+    throw new Error("Some Error occurred while updating book datails");
+  }
+});
+
 module.exports = {
   borrowBook,
   returnBook,
   bookList,
   addNewBook,
   searchBook,
+  updateBookDetails,
 };
