@@ -27,8 +27,24 @@
 
 ## Description
 
-  The LibraryApp is application to manage library books and their borrowers list.
-  
+Introducing the LibraryApp – your ultimate solution for efficient library book and borrower management. This innovative application streamlines the process of overseeing library resources and user interactions with a user-friendly interface and a comprehensive set of features.
+
+1. **Seamless User Signup and Login:**
+   LibraryApp ensures a hassle-free onboarding experience with easy user signup and login procedures. Users can swiftly create accounts, allowing them to access the platform's features effortlessly.
+
+2. **Enhanced Borrowing Process:**
+   Borrowing books has never been smoother. LibraryApp introduces an extra layer of security and control by requiring administrator approval before users can start borrowing. This measure guarantees a responsible and accountable lending process.
+
+3. **Thoughtful Book Limitations:**
+   To promote responsible reading habits, LibraryApp enforces a limitation on the number of books a user can borrow simultaneously. This ensures fair access to resources for all users and encourages the return of borrowed items in a timely manner.
+
+4. **Empowering Administrator Accounts:**
+   LibraryApp recognizes the need for administrators to efficiently manage the system. For this purpose, an administrator account can be easily created using a unique administrator key. This grants authorized personnel the ability to oversee and optimize the platform's operations.
+
+5. **Efficient User Verification and Book Management:**
+   Administrators wield the power to verify user accounts, ensuring a community of genuine users. Moreover, administrators hold the keys to expanding the library's catalog. They can effortlessly add new book details to the system, keeping the collection current and captivating.
+
+The LibraryApp revolutionizes library management by seamlessly merging user needs with administrative control. It's a comprehensive solution that guarantees a smooth borrowing process, upholding the essence of reading while embracing the capabilities of modern technology. Join us today and embark on a journey of organized literary exploration with the LibraryApp.
   
   
 <p>Deployed website: <strong><a href="https://libraryappbackend.onrender.com/">https://libraryappbackend.onrender.com/</a></strong>
@@ -84,7 +100,7 @@ LibraryAppBackEnd is built with the following tools and libraries: <ul><li>Node 
 
 ## Usage
 
-      1. User sign up and login
+      1. User signup and login
       
       2. Administrators approval required to start borrowing.
       
