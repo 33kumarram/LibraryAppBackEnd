@@ -7,7 +7,6 @@
 ## Table Of Content
 
 - [Description](#description)
-- [Deployed website link](#deployedWebsite)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contribution)
