@@ -31,24 +31,6 @@
   
   
   
-  Key Features:
-  
-      1. User sign up and login
-      
-      2. Administrators approval required to start borrowing.
-      
-      3. User can borrow limited books only.
-
-      4. Administrator account can be created by providing administrator key
-
-      5. Administrator can verify user accounts and can add new book details
-
-
-
-
-
-
-
 <p>Deployed website: <strong><a href="https://libraryappbackend.onrender.com/">https://libraryappbackend.onrender.com/</a></strong>
 
 
@@ -101,6 +83,17 @@ LibraryAppBackEnd is built with the following tools and libraries: <ul><li>Node 
 
 
 ## Usage
+
+      1. User sign up and login
+      
+      2. Administrators approval required to start borrowing.
+      
+      3. User can borrow limited books only.
+
+      4. Administrator account can be created by providing administrator key
+
+      5. Administrator can verify user accounts and can add new book details
+
 
 
 ## Contribution
