@@ -101,44 +101,6 @@ LibraryAppBackEnd is built with the following tools and libraries: <ul><li>Node 
 
 
 ## Usage
- 
-1. Send OTP to your mail id: 
-
-
-   End point = https://nodeotploginapi.onrender.com/users/sendotp
-
-   Request Type = POST
-
-   Body = 
-   
-          {
-   
-            "email":<Your Mail Id>
-  
-          }
-
-2. Validate OTP:
-
-   End point = https://nodeotploginapi.onrender.com/users/login
-
-   Request Type = POST
-
-   Body = 
-   
-          {
-   
-            "email":<Your Mail Id>,
-  
-            "otp":<OTP sent to your Mail Id>
-  
-          }
-
-
-
-
-
-
-
 
 
 ## Contribution
