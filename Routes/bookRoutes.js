@@ -20,6 +20,6 @@ router
   .post(authorize, isAdministrator, updateBookDetails);
 router
   .route("/searchbook/:attributename/:value")
-  .put(authorize, isAdministrator, searchBook);
+  .get(authorize, searchBook);
 
 module.exports = router;

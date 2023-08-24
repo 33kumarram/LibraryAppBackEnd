@@ -9,11 +9,11 @@ const authorize = errorHandler(async function (req, res, next) {
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
   ) {
-    token = req.headers.authorization.split(" ")[1];
-    console.log(token);
+    token =await  req.headers.authorization.split(" ")[1];
+    console.log("MyToken", token);
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET);
+      decoded = await jwt.verify(token, process.env.JWT_SECRET);
     } catch (error) {
       console.log(error);
       res.status(401);
