@@ -1,7 +1,6 @@
 const errorHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
-const user = require("../models/userModel");
 
 const registerUser = errorHandler(async (req, res) => {
   const { name, email, mobile_no, password, kyc_image } = req.body;
@@ -20,6 +19,7 @@ const registerUser = errorHandler(async (req, res) => {
   let user_type = "user";
 
   if (req.body.user_type && req.body.user_type === "administrator") {
+    console.log("I am running");
     const valid_admin = req.body.admin_key === admin_key;
     if (!valid_admin) {
       res.status(400);
@@ -45,8 +45,9 @@ const registerUser = errorHandler(async (req, res) => {
       name: newUser.name,
       email: newUser.email,
       mobile_no: newUser.mobile_no,
+      user_type: newUser.user_type,
       kyc_image: newUser.kyc_image,
-      token: generateToken(newUser._id),
+      // token: generateToken(newUser._id),
     });
   } else {
     res.status(400);
@@ -57,13 +58,18 @@ const registerUser = errorHandler(async (req, res) => {
 const authUser = errorHandler(async function (req, res) {
   const { mobile_no, password } = req.body;
   const user = await User.findOne({ mobile_no });
-  if (user && user.comparePassword(password)) {
+  const correctPass = await user.comparePassword(password); // check whether password is correct or not
+  if (user && correctPass) {
     res.status(201).json({
       _id: user._id,
       name: user.name,
+      mobile_no: user.mobile_no,
       email: user.email,
       mobile_no: user.mobile_no,
       kyc_image: user.kyc_image,
+      user_type: user.user_type,
+      borrowed_books: user.borrowed_books,
+      verified: user.verified,
       token: generateToken(user._id),
     });
   } else {
@@ -89,10 +95,11 @@ const getUser = errorHandler(async function (req, res) {
 });
 
 const verifyUser = errorHandler(async function (req, res) {
-  const keyWords = req.params.mobile_no;
+  const mobile_no = req.params.mobile_no;
   const user = await User.findOneAndUpdate(
     { mobile_no },
-    { verified: true, verification_date: new Date() }
+    { verified: true, verification_date: new Date() },
+    { new: true }
   );
   res.status(201).json(user);
 });

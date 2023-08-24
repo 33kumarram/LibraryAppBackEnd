@@ -13,7 +13,7 @@ const router = express.Router();
 router.post("/login", authUser);
 router.route("/signup").post(registerUser);
 router.route("/search/:mobile_no").get(authorize, getUser);
-router.route("/verify").post(authorize, isAdministrator, verifyUser);
+router.route("/verify/:mobile_no").post(authorize, isAdministrator, verifyUser);
 router.route("/manageprofile/:userId").put(authorize, manageProfile);
 
 module.exports = router;
