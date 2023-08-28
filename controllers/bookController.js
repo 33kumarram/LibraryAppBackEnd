@@ -7,6 +7,7 @@ const {
 } = require("../config/constValues");
 
 const borrowBook = asyncHandler(async (req, res) => {
+  // User can borrow limited number of books at a time
   if (req.user.borrowed_books.length >= bookBorrowLimitPerUser) {
     res.status(400);
     throw new Error(
@@ -15,7 +16,7 @@ const borrowBook = asyncHandler(async (req, res) => {
   }
   const bookId = req.params.bookId;
   const book1 = await Books.findById(bookId);
-  console.log(req.user);
+  // checks whether book is available or not
   if (book1 && book1.no_of_borrowers >= book1.borrowing_limit) {
     res.status(400);
     throw new Error("Sorry, Book not available");
@@ -70,6 +71,7 @@ const returnBook = asyncHandler(async (req, res) => {
 });
 
 const bookList = asyncHandler(async (req, res) => {
+  // added pagination to avoid unecessary load
   try {
     const page = req.params.page || 1;
     const booksToSkip = page * (page - 1);
@@ -130,10 +132,10 @@ const addNewBook = asyncHandler(async (req, res) => {
 
 const searchBook = asyncHandler(async (req, res) => {
   try {
-    const attributename = req.params.attributename;
+    const attributename = req.params.attributename; // book can be searched by author name, book name or any other attribute
     const value = req.params.value;
     const query = {};
-    query[attributename] = { $regex: value, $options: "i" };
+    query[attributename] = { $regex: value, $options: "i" }; // allowed partial, case insensitive search
     const books = await Books.find(query).sort({ id: -1 });
     res.status(201).json(books);
   } catch (err) {

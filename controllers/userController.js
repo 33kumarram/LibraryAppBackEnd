@@ -9,7 +9,8 @@ const registerUser = errorHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please fill all the details");
   }
-
+  
+  // Multiple user with same mobile no is not allowed
   const userExist = await User.findOne({ mobile_no });
   if (userExist) {
     res.status(400);
@@ -17,9 +18,8 @@ const registerUser = errorHandler(async (req, res) => {
   }
 
   let user_type = "user";
-
+// admin key required to create admin user
   if (req.body.user_type && req.body.user_type === "administrator") {
-    console.log("I am running");
     const valid_admin = req.body.admin_key === admin_key;
     if (!valid_admin) {
       res.status(400);
@@ -94,6 +94,7 @@ const getUser = errorHandler(async function (req, res) {
   }
 });
 
+// User required to be verified by administrator to activate account completely
 const verifyUser = errorHandler(async function (req, res) {
   const mobile_no = req.params.mobile_no;
   const user = await User.findOneAndUpdate(
@@ -104,6 +105,7 @@ const verifyUser = errorHandler(async function (req, res) {
   res.status(201).json(user);
 });
 
+// User can change their details after login
 const manageProfile = errorHandler(async (req, res) => {
   const userId = req.params.userId;
   const data = req.body;
