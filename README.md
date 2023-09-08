@@ -4,7 +4,7 @@
 
 
 
-## Table Of Content
+## Table Of Content  
 
 - [Description](#description)
 - [Installation](#installation)
@@ -26,7 +26,7 @@
 
 ## Description
 
-Introducing the LibraryApp – your ultimate solution for efficient library book and borrower management. This innovative application streamlines the process of overseeing library resources and user interactions with a user-friendly interface and a comprehensive set of features.
+Introducing the LibraryApp – your ultimate solution for efficient library book and borrower management. This innovative application streamlines the process of overseeing library resources and user interactions with a user-friendly interface and a comprehensive set of features. 
 
 1. **Seamless User Signup and Login:**
    LibraryApp ensures a hassle-free onboarding experience with easy user signup and login procedures. Users can swiftly create accounts, allowing them to access the platform's features effortlessly.
@@ -97,7 +97,7 @@ LibraryAppBackEnd is built with the following tools and libraries: <ul><li>Node 
 
 
 
-## Usage
+## Usage 
 
       1. User signup and login
       
@@ -111,7 +111,7 @@ LibraryAppBackEnd is built with the following tools and libraries: <ul><li>Node 
 
 
 
-## Contribution
+## Contribution 
  
 If you would like to contribute to this project, please follow these steps:
 
